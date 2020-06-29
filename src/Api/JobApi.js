@@ -2,8 +2,8 @@ import BaseApi from './ApiHelper';
 
 
 class JobApi {
-  static async getCompanies() {
-    const res = await BaseApi.request('jobs');
+  static async getJobs(query) {
+    const res = await BaseApi.request('jobs', query);
     return res.jobs;
   }
 

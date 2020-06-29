@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import Companies from './Companies';
 
 const Routes = () => (
   <Switch>
@@ -8,8 +9,8 @@ const Routes = () => (
       <p>Company Detail</p>
     </Route>
     <Route exact path="/companies">
-      {/* Companies */}
       <p>List of Companies</p>
+      <Companies />
     </Route>
     <Route exact path="/jobs">
       {/* Jobs */}
