@@ -9,7 +9,6 @@ const Routes = () => (
       <p>Company Detail</p>
     </Route>
     <Route exact path="/companies">
-      <p>List of Companies</p>
       <Companies />
     </Route>
     <Route exact path="/jobs">

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import CompanyApi from './api/CompanyApi';
+import CompanyCard from './CompanyCard';
 import Search from './util/Search';
-import { Container } from '@material-ui/core';
+import { Container, Grid, Box } from '@material-ui/core';
 
 
 const Companies = (props) => {
@@ -18,10 +19,17 @@ const Companies = (props) => {
 
   return (
     <div className="Companies">
+      <Search setter={setCompanies} reqFn={CompanyApi.getCompanies} />
       <Container>
-        <Search setter={setCompanies} reqFn={CompanyApi.getCompanies} />
-        {/* {companies.map(company => <CompanyCard {...company} />)} */}
-        {companies.map(company => <p key={company.name}>{company.name}</p>)}
+        <Box my={4}>
+          <Grid container justify="center" alignItems="flex-start" spacing={3}>
+            {companies.map(company => (
+              <Grid item sm={12} md={6} key={company.handle}>
+                <CompanyCard {...company} />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </Container>
     </div>
   )
