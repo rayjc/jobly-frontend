@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import UserApi from './api/UserApi';
 import Alerts from './util/Alerts';
 import { login } from './util/helpers';
+import AuthContext from './AuthContext';
 
 
 function Copyright() {
@@ -43,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp({ setToken }) {
+export default function SignUp() {
+  const { setToken } = useContext(AuthContext);
   const classes = useStyles();
   const INIT_FORM_STATE = {
     "username": "",

@@ -3,6 +3,7 @@ import { Box, Container, Paper, Tab, Tabs } from '@material-ui/core';
 import Login from './Login';
 import Signup from './Signup';
 
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -23,7 +24,7 @@ function TabPanel(props) {
   );
 }
 
-const Auth = ({ setToken }) => {
+const Auth = () => {
   const [tabValue, setTabValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -46,10 +47,10 @@ const Auth = ({ setToken }) => {
         </Tabs>
       </Paper>
       <TabPanel value={tabValue} index={0}>
-        <Login setToken={setToken} />
+        <Login />
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-        <Signup setToken={setToken} />
+        <Signup />
       </TabPanel>
     </Container>
   )

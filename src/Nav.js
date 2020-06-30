@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { AppBar, Button, Toolbar, Typography, Link } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
-import { authenticate, logout } from './util/helpers';
+import { logout } from './util/helpers';
+import AuthContext from './AuthContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,9 +26,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = ({ token, setToken }) => {
+const Nav = () => {
   const classes = useStyles();
   const history = useHistory();
+  const { token, setToken } = useContext(AuthContext);
 
   const handleLogout = () => {
     logout();
