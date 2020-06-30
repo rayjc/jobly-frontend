@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Box, Container, Grid } from '@material-ui/core';
+import { Box, CircularProgress, Container, Grid } from '@material-ui/core';
 import queryString from 'query-string';
 import JobApi from './api/JobApi'
 import JobCard from './JobCard';
@@ -19,6 +19,14 @@ const Jobs = () => {
 
     initJobs();
   }, [location])
+
+  if (jobs.length === 0) {
+    return (
+      <div style={{ textAlign: "center" }}>
+        <CircularProgress />
+      </div>
+    )
+  }
 
   return (
     <div className="Jobs">

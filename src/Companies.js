@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import CompanyApi from './api/CompanyApi';
 import CompanyCard from './CompanyCard';
 import Search from './util/Search';
-import { Container, Grid, Box } from '@material-ui/core';
+import { CircularProgress, Container, Grid, Box } from '@material-ui/core';
 
 
 const Companies = () => {
@@ -20,6 +20,14 @@ const Companies = () => {
 
     initCompanies();
   }, [location]);
+
+  if (companies.length === 0) {
+    return (
+      <div style={{ textAlign: "center" }}>
+        <CircularProgress />
+      </div>
+    )
+  }
 
   return (
     <div className="Companies">
