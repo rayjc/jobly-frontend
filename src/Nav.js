@@ -25,12 +25,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = () => {
+const Nav = ({ token, setToken }) => {
   const classes = useStyles();
   const history = useHistory();
 
   const handleLogout = () => {
     logout();
+    setToken(null);
     history.push('/login');
   }
 
@@ -44,7 +45,7 @@ const Nav = () => {
             Jobly
           </Typography>
           <nav>
-            {authenticate() ? (
+            {token ? (
               <>
                 <Link variant="button" color="textPrimary" className={classes.link}
                   component={RouterLink} to="/companies">

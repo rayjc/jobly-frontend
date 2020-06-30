@@ -5,7 +5,7 @@ import Companies from './Companies';
 import CompanyDetail from './CompanyDetail';
 import Jobs from './Jobs';
 
-const Routes = () => (
+const Routes = ({ setToken }) => (
   <Switch>
     <Route path="/companies/:handle">
       <CompanyDetail />
@@ -17,7 +17,7 @@ const Routes = () => (
       <Jobs />
     </Route>
     <Route exact path="/login">
-      <Auth />
+      <Auth setToken={setToken} />
     </Route>
     <Route exact path="/profile">
       {/* Profile */}

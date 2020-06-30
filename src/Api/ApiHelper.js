@@ -4,7 +4,7 @@ import { authenticate } from '../util/helpers';
 
 class BaseApi {
   static async request(endpoint, paramsOrData = {}, verb = "get") {
-    paramsOrData._token = authenticate()
+    paramsOrData._token = authenticate();
 
     console.debug("API Call:", endpoint, paramsOrData, verb);
 

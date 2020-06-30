@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn({ setToken }) {
   const classes = useStyles();
   const INIT_FORM_STATE = {
     "username": "",
@@ -63,6 +63,7 @@ export default function SignIn() {
     try {
       const token = await AuthApi.login(formData.username, formData.password);
       login(token);
+      setToken(token);
       setFormData(INIT_FORM_STATE);   // empty out forms
       history.push('/');
     } catch (error) {

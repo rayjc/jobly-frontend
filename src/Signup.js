@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp({ setToken }) {
   const classes = useStyles();
   const INIT_FORM_STATE = {
     "username": "",
@@ -67,6 +67,7 @@ export default function SignUp() {
     try {
       const token = await UserApi.createUser(formData);
       login(token);
+      setToken(token);
       setFormData(INIT_FORM_STATE);   // empty out forms
       history.push('/');
     } catch (error) {

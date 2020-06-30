@@ -2,7 +2,7 @@ import BaseApi from './ApiHelper';
 
 
 class UserApi {
-  static async getCompanies() {
+  static async getUsers() {
     const res = await BaseApi.request('users');
     return res.users;
   }

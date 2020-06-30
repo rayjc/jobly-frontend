@@ -23,7 +23,7 @@ function TabPanel(props) {
   );
 }
 
-const Auth = () => {
+const Auth = ({ setToken }) => {
   const [tabValue, setTabValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -46,10 +46,10 @@ const Auth = () => {
         </Tabs>
       </Paper>
       <TabPanel value={tabValue} index={0}>
-        <Login />
+        <Login setToken={setToken} />
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-        <Signup />
+        <Signup setToken={setToken} />
       </TabPanel>
     </Container>
   )

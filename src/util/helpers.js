@@ -7,17 +7,8 @@ const logout = (key = "jobly") => {
   window.localStorage.removeItem(key);
 }
 
-const authenticate = (key = "jobly") => {
-  try {
-    const stored = window.localStorage.getItem(key);
-    if (stored) {
-      const { token } = JSON.parse(window.localStorage.getItem(key));
-      return token;
-    }
-  } catch (error) {
-    console.error(`Fail to parse ${key} in localStorage.`)
-  }
-  return null;
+const authenticate = (key = "jobly-token") => {
+  return window.localStorage.getItem(key);
 }
 
 export { authenticate, login, logout };
