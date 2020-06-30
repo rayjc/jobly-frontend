@@ -14,7 +14,7 @@ class UserApi {
 
   static async createUser(user) {
     const res = await BaseApi.request('users', user, "post");
-    return res.user;
+    return res.token;
   }
 
   static async updateUser(username, user) {

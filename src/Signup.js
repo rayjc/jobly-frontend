@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -7,6 +8,9 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import UserApi from './api/UserApi';
+import Alerts from './util/Alerts';
+import { login } from './util/helpers';
 
 
 function Copyright() {
@@ -41,12 +45,41 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const INIT_FORM_STATE = {
+    "username": "",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "password": "",
+  }
+  const [formData, setFormData] = useState(INIT_FORM_STATE);
+  const [formErrors, setFormErrors] = useState([])
+  const history = useHistory();
+
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+    setFormData(f => ({ ...f, [name]: value }));
+  }
+
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+    setFormErrors([]);    // reset alert
+    try {
+      const token = await UserApi.createUser(formData);
+      login(token);
+      setFormData(INIT_FORM_STATE);   // empty out forms
+      history.push('/');
+    } catch (error) {
+      // show alerts
+      setFormErrors(error);
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -57,18 +90,22 @@ export default function SignUp() {
                 label="Username"
                 name="username"
                 autoComplete="username"
+                value={formData.username}
+                onChange={handleChange}
                 autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="first_name"
                 variant="outlined"
                 required
                 fullWidth
                 id="firstName"
                 label="First Name"
+                value={formData.first_name}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -78,8 +115,10 @@ export default function SignUp() {
                 fullWidth
                 id="lastName"
                 label="Last Name"
-                name="lastName"
+                name="last_name"
                 autoComplete="lname"
+                value={formData.last_name}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -91,6 +130,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={formData.email}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -103,15 +144,19 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={formData.password}
+                onChange={handleChange}
               />
             </Grid>
           </Grid>
+          {formErrors.length !== 0 && <Alerts points={formErrors} />}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={Object.values(formData).some(field => field.length === 0)}
           >
             Sign Up
           </Button>
