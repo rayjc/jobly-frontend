@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -6,6 +7,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import AuthApi from './api/AuthApi';
+import Alerts from './util/Alerts';
+import { login } from './util/helpers';
+
 
 function Copyright() {
   return (
@@ -39,12 +44,38 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const INIT_FORM_STATE = {
+    "username": "",
+    "password": "",
+  }
+  const [formData, setFormData] = useState(INIT_FORM_STATE);
+  const [formErrors, setFormErrors] = useState([])
+  const history = useHistory();
+
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+    setFormData(f => ({ ...f, [name]: value }));
+  }
+
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+    setFormErrors([]);    // reset alert
+    try {
+      const token = await AuthApi.login(formData.username, formData.password);
+      login(token);
+      setFormData(INIT_FORM_STATE);   // empty out forms
+      history.push('/');
+    } catch (error) {
+      // show alerts
+      setFormErrors(error);
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -54,6 +85,8 @@ export default function SignIn() {
             label="Username"
             name="username"
             autoComplete="username"
+            value={formData.username}
+            onChange={handleChange}
             autoFocus
           />
           <TextField
@@ -66,13 +99,17 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={formData.password}
+            onChange={handleChange}
           />
+          {formErrors.length !== 0 && <Alerts points={formErrors} />}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={formData.username.length === 0 || formData.password.length === 0}
           >
             Sign In
           </Button>
