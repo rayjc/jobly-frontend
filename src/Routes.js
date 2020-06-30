@@ -1,12 +1,12 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Companies from './Companies';
+import CompanyDetail from './CompanyDetail';
 
 const Routes = () => (
   <Switch>
     <Route path="/companies/:handle">
-      {/* Company */}
-      <p>Company Detail</p>
+      <CompanyDetail />
     </Route>
     <Route exact path="/companies">
       <Companies />
