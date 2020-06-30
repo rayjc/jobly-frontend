@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Box, Container, Paper, Tab, Tabs } from '@material-ui/core';
 import Login from './Login';
 import Signup from './Signup';
+import AuthContext from './util/AuthContext';
+import { Redirect } from 'react-router-dom';
 
 
 function TabPanel(props) {
@@ -25,11 +27,16 @@ function TabPanel(props) {
 }
 
 const Auth = () => {
+  const { currUser } = useContext(AuthContext);
   const [tabValue, setTabValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setTabValue(newValue);
   };
+
+  if (currUser) {
+    return <Redirect to='/' />
+  }
 
   return (
     <Container maxWidth="xs">

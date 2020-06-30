@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Nav from './Nav';
 import Routes from './Routes';
 import { useLocalStorage } from './util/hooks';
@@ -10,22 +10,21 @@ const LOCAL_STORAGE_KEY = 'jobly-token';
 
 function App() {
   const [token, setToken] = useLocalStorage(LOCAL_STORAGE_KEY, null);
-  const [currUser, setCurrUser] = useState(null);
+  const [currUser, setCurrUser] = useLocalStorage("jobly-user", null, true);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const { username } = decode(token);
         const user = await UserApi.getUser(username);
-        setCurrUser(user);
+        setCurrUser(() => user);
       } catch (error) {
-        // console.error(error);
         setCurrUser(null);
       }
     }
 
     fetchUser();
-  }, [token])
+  }, [token, setCurrUser])
 
   return (
     <div className="App">

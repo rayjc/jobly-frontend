@@ -43,16 +43,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
-  const { setToken } = useContext(AuthContext);
+export default function Profile() {
+  const { currUser, setCurrUser } = useContext(AuthContext);
+  // console.log(currUser);
   const classes = useStyles();
   const INIT_FORM_STATE = {
-    "username": "",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "password": "",
-  }
+    first_name: currUser.first_name,
+    last_name: currUser.last_name,
+    email: currUser.email,
+    photo_url: currUser.photo_url || "",
+    password: "",
+  };
   const [formData, setFormData] = useState(INIT_FORM_STATE);
   const [formErrors, setFormErrors] = useState([])
   const history = useHistory();
@@ -66,9 +67,19 @@ export default function SignUp() {
     evt.preventDefault();
     setFormErrors([]);    // reset alert
     try {
-      // pass in a copy of formData object to avoid side effect from request
-      const token = await UserApi.createUser({ ...formData });
-      setToken(token);
+      if (formData.photo_url.length === 0) {
+        const { photo_url, ...data } = formData;
+        await UserApi.updateUser(currUser.username, data)
+      } else {
+        await UserApi.updateUser(currUser.username, { ...formData })
+      }
+
+      const updatedUser = { ...currUser, ...formData };
+      delete updatedUser.password;
+      if (formData.photo_url.length === 0) {
+        updatedUser.photo_url = null;
+      }
+      setCurrUser(updatedUser);
       setFormData(INIT_FORM_STATE);   // empty out forms
       history.push('/');
     } catch (error) {
@@ -92,9 +103,8 @@ export default function SignUp() {
                 label="Username"
                 name="username"
                 autoComplete="username"
-                value={formData.username}
-                onChange={handleChange}
-                autoFocus
+                value={currUser.username}
+                disabled
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -141,8 +151,20 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
+                id="photoUrl"
+                label="Photo URL"
+                name="photo_url"
+                value={formData.photo_url}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
                 name="password"
-                label="Password"
+                label="Verify Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -158,9 +180,12 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={Object.values(formData).some(field => field.length === 0)}
+            disabled={
+              formData.first_name.length === 0 || formData.last_name.length === 0
+              || formData.email.length === 0 || formData.password.length === 0
+            }
           >
-            Sign Up
+            Update
           </Button>
         </form>
       </div>

@@ -19,9 +19,9 @@ const useSessionStorage = (key, initialValue) => {
 }
 
 
-const useLocalStorage = (key, initialValue) => {
+const useLocalStorage = (key, initialValue, parseJSON = false) => {
   const [state, setState] = useState(() => {
-    const stored = window.localStorage.getItem(key);
+    const stored = parseJSON ? JSON.parse(window.localStorage.getItem(key)) : window.localStorage.getItem(key);
     return stored ? stored : initialValue;
   });
 

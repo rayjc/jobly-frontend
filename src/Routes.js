@@ -4,6 +4,7 @@ import Auth from './Auth';
 import Companies from './Companies';
 import CompanyDetail from './CompanyDetail';
 import Jobs from './Jobs';
+import Profile from './Profile';
 import PrivateRoute from './util/PrivateRoute';
 
 
@@ -22,8 +23,7 @@ const Routes = () => (
       <Auth />
     </Route>
     <PrivateRoute exact path="/profile">
-      {/* Profile */}
-      <p>User profile form</p>
+      <Profile />
     </PrivateRoute>
     <Route exact path="/">
       {/* Home */}
