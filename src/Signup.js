@@ -10,7 +10,6 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import UserApi from './api/UserApi';
 import Alerts from './util/Alerts';
-import { login } from './util/helpers';
 import AuthContext from './AuthContext';
 
 
@@ -68,7 +67,6 @@ export default function SignUp() {
     setFormErrors([]);    // reset alert
     try {
       const token = await UserApi.createUser(formData);
-      login(token);
       setToken(token);
       setFormData(INIT_FORM_STATE);   // empty out forms
       history.push('/');

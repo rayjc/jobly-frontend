@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
-import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { Link as RouterLink, NavLink, useHistory } from 'react-router-dom';
 import { AppBar, Button, Toolbar, Typography, Link } from '@material-ui/core';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
-import { logout } from './util/helpers';
 import AuthContext from './AuthContext';
+import './Nav.css';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,14 +31,12 @@ const Nav = () => {
   const { token, setToken } = useContext(AuthContext);
 
   const handleLogout = () => {
-    logout();
     setToken(null);
     history.push('/login');
   }
 
   return (
-    <>
-      <CssBaseline />
+    <div className="Nav">
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}
@@ -50,15 +47,15 @@ const Nav = () => {
             {token ? (
               <>
                 <Link variant="button" color="textPrimary" className={classes.link}
-                  component={RouterLink} to="/companies">
+                  component={NavLink} to="/companies">
                   Companies
                   </Link>
                 <Link variant="button" color="textPrimary" className={classes.link}
-                  component={RouterLink} to="/jobs">
+                  component={NavLink} to="/jobs">
                   Jobs
                   </Link>
                 <Button color="default" variant="text" className={classes.link}
-                  component={RouterLink} to="/profile">
+                  component={NavLink} to="/profile">
                   <AccountCircleIcon />
                 </Button>
                 <Button color="primary" variant="outlined" className={classes.link}
@@ -76,7 +73,7 @@ const Nav = () => {
           </nav>
         </Toolbar>
       </AppBar>
-    </>
+    </div>
   );
 }
 

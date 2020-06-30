@@ -1,0 +1,9 @@
+.Nav a {
+    margin: 2rem;
+    color: black;
+    text-decoration: none;
+}
+
+.Nav a.active {
+    text-decoration: underline;
+}

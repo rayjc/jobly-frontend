@@ -3,13 +3,8 @@ import { useState, useEffect } from 'react';
 
 const useSessionStorage = (key, initialValue) => {
   const [state, setState] = useState(() => {
-    try {
-      const value = JSON.parse(window.sessionStorage.getItem(key) || JSON.stringify(initialValue));
-      return value;
-    } catch (error) {
-      console.error(`Fail to parse ${key} in sessionStorage.`)
-      return initialValue;
-    }
+    const stored = window.sessionStorage.getItem(key);
+    return stored ? stored : initialValue;
   });
 
   useEffect(() => {
@@ -26,20 +21,17 @@ const useSessionStorage = (key, initialValue) => {
 
 const useLocalStorage = (key, initialValue) => {
   const [state, setState] = useState(() => {
-    try {
-      const value = JSON.parse(window.localStorage.getItem(key) || JSON.stringify(initialValue));
-      return value;
-    } catch (error) {
-      console.error(`Fail to parse ${key} in localStorage.`)
-      return initialValue;
-    }
+    const stored = window.localStorage.getItem(key);
+    return stored ? stored : initialValue;
   });
 
   useEffect(() => {
-    if (typeof state == "object") {
+    if (state && typeof state == "object") {
       window.localStorage.setItem(key, JSON.stringify(state));
-    } else {
+    } else if (state) {
       window.localStorage.setItem(key, state);
+    } else {
+      window.localStorage.removeItem(key);
     }
   }, [state, key]);
 

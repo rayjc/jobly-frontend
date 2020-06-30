@@ -9,7 +9,6 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import AuthApi from './api/AuthApi';
 import Alerts from './util/Alerts';
-import { login } from './util/helpers';
 import AuthContext from './AuthContext';
 
 
@@ -64,7 +63,6 @@ export default function SignIn() {
     setFormErrors([]);    // reset alert
     try {
       const token = await AuthApi.login(formData.username, formData.password);
-      login(token);
       setToken(token);
       setFormData(INIT_FORM_STATE);   // empty out forms
       history.push('/');
