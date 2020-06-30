@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import Auth from './Auth';
 import Companies from './Companies';
 import CompanyDetail from './CompanyDetail';
 import Jobs from './Jobs';
@@ -16,8 +17,7 @@ const Routes = () => (
       <Jobs />
     </Route>
     <Route exact path="/login">
-      {/* Login */}
-      <p>Login/Signup Form</p>
+      <Auth />
     </Route>
     <Route exact path="/profile">
       {/* Profile */}
