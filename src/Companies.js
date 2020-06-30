@@ -23,7 +23,7 @@ const Companies = () => {
 
   return (
     <div className="Companies">
-      <Search setter={setCompanies} reqFn={CompanyApi.getCompanies} />
+      <Search />
       <Container>
         <Box my={4}>
           <Grid container justify="center" alignItems="flex-start" spacing={3}>

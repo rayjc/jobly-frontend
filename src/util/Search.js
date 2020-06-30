@@ -20,8 +20,10 @@ const Search = ({ label = "Search" }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const url = `${history.location.pathname}?${queryString.stringify({ "search": formData.search })}`;
-    history.push(url);
+    if (formData.search.length !== 0) {
+      const url = `${history.location.pathname}?${queryString.stringify({ "search": formData.search })}`;
+      history.push(url);
+    }
   }
 
   return (
@@ -31,7 +33,8 @@ const Search = ({ label = "Search" }) => {
           <TextField id="search-input" label={label} placeholder="Enter search term..."
             name="search" value={formData.search} onChange={handleChange} fullWidth />
         </Box>
-        <IconButton className="Search-btn" aria-label="search">
+        <IconButton className="Search-btn" aria-label="search" 
+          onClick={handleSubmit} disabled={formData.search.length === 0}>
           <SearchIcon />
         </IconButton>
       </Grid>
