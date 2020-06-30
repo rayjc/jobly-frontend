@@ -3,7 +3,7 @@ import { Link as RouterLink, NavLink, useHistory } from 'react-router-dom';
 import { AppBar, Button, Toolbar, Typography, Link } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
-import AuthContext from './AuthContext';
+import AuthContext from './util/AuthContext';
 import './Nav.css';
 
 

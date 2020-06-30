@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import UserApi from './api/UserApi';
 import Alerts from './util/Alerts';
-import AuthContext from './AuthContext';
+import AuthContext from './util/AuthContext';
 
 
 function Copyright() {

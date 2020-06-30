@@ -4,25 +4,27 @@ import Auth from './Auth';
 import Companies from './Companies';
 import CompanyDetail from './CompanyDetail';
 import Jobs from './Jobs';
+import PrivateRoute from './util/PrivateRoute';
+
 
 const Routes = () => (
   <Switch>
-    <Route path="/companies/:handle">
+    <PrivateRoute path="/companies/:handle">
       <CompanyDetail />
-    </Route>
-    <Route exact path="/companies">
+    </PrivateRoute>
+    <PrivateRoute exact path="/companies">
       <Companies />
-    </Route>
-    <Route exact path="/jobs">
+    </PrivateRoute>
+    <PrivateRoute exact path="/jobs">
       <Jobs />
-    </Route>
+    </PrivateRoute>
     <Route exact path="/login">
       <Auth />
     </Route>
-    <Route exact path="/profile">
+    <PrivateRoute exact path="/profile">
       {/* Profile */}
       <p>User profile form</p>
-    </Route>
+    </PrivateRoute>
     <Route exact path="/">
       {/* Home */}
       <p>Home Page</p>

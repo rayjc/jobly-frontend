@@ -4,7 +4,7 @@ import Routes from './Routes';
 import { useLocalStorage } from './util/hooks';
 import { decode } from "jsonwebtoken";
 import UserApi from './api/UserApi';
-import AuthContext from './AuthContext';
+import AuthContext from './util/AuthContext';
 
 const LOCAL_STORAGE_KEY = 'jobly-token';
 
@@ -16,7 +16,7 @@ function App() {
     const fetchUser = async () => {
       try {
         const { username } = decode(token);
-        const { user } = await UserApi.getUser(username);
+        const user = await UserApi.getUser(username);
         setCurrUser(user);
       } catch (error) {
         // console.error(error);

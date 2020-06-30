@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import AuthApi from './api/AuthApi';
 import Alerts from './util/Alerts';
-import AuthContext from './AuthContext';
+import AuthContext from './util/AuthContext';
 
 
 function Copyright() {
