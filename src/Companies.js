@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom'
+import queryString from 'query-string';
 import CompanyApi from './api/CompanyApi';
 import CompanyCard from './CompanyCard';
 import Search from './util/Search';
 import { Container, Grid, Box } from '@material-ui/core';
 
 
-const Companies = (props) => {
+const Companies = () => {
   const [companies, setCompanies] = useState([]);
+
+  const location = useLocation();
 
   useEffect(() => {
     const initCompanies = async () => {
-      const data = await CompanyApi.getCompanies();
-      setCompanies(companies => data);
+      const data = await CompanyApi.getCompanies(queryString.parse(location.search));
+      setCompanies(() => data);
     }
 
     initCompanies();
-  }, []);
+  }, [location]);
 
   return (
     <div className="Companies">

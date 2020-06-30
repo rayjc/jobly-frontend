@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import queryString from 'query-string';
 import { IconButton, TextField, Box, Grid } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 
 
-const Search = ({ reqFn, setter, label = "Search" }) => {
+const Search = ({ label = "Search" }) => {
   const INIT_FORM_STATE = {
     "search": ""
   }
   const [formData, setFormData] = useState(INIT_FORM_STATE);
+
+  const history = useHistory();
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -16,7 +20,8 @@ const Search = ({ reqFn, setter, label = "Search" }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setter(await reqFn({ "search": formData.search }));
+    const url = `${history.location.pathname}?${queryString.stringify({ "search": formData.search })}`;
+    history.push(url);
   }
 
   return (

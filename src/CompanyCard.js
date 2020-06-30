@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom'
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import BusinessIcon from '@material-ui/icons/Business';
@@ -13,10 +14,12 @@ const useStyles = makeStyles({
 const CompanyCard = ({ handle, name, description, logo_url: logoUrl }) => {
   const classes = useStyles();
 
+  const location = useLocation();
+
   return (
     <Card>
-      <CardActionArea>
-        {logoUrl && <CardMedia className={classes.media} image={logoUrl} title={name} /> || <BusinessIcon />}
+      <CardActionArea component={Link} to={`${location.pathname}/${handle}`}>
+        {logoUrl ? <CardMedia className={classes.media} image={logoUrl} title={name} /> : <BusinessIcon />}
         <CardContent>
           <Typography gutterBottom variant="h5" component="h3">
             {name}
