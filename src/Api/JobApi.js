@@ -23,12 +23,12 @@ class JobApi {
   }
 
   static async removeJob(id) {
-    const res = await BaseApi.request(`jobs/${id}`, "delete");
+    const res = await BaseApi.request(`jobs/${id}`, undefined, "delete");
     return res.message;
   }
 
   static async applyForJob(id) {
-    const res = await BaseApi.request(`jobs/${id}/apply`, "post");
+    const res = await BaseApi.request(`jobs/${id}/apply`, undefined, "post");
     return res.message;
   }
 }
