@@ -5,7 +5,7 @@ import { IconButton, TextField, Box, Grid } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 
 
-const Search = ({ label = "Search" }) => {
+const Search = ({ label = "Search", placeholder = "Enter search term..." }) => {
   const INIT_FORM_STATE = {
     "search": ""
   }
@@ -30,10 +30,10 @@ const Search = ({ label = "Search" }) => {
     <form noValidate autoComplete="off" onSubmit={handleSubmit}>
       <Grid container justify="center">
         <Box width="50%">
-          <TextField id="search-input" label={label} placeholder="Enter search term..."
+          <TextField id="search-input" label={label} placeholder={placeholder}
             name="search" value={formData.search} onChange={handleChange} fullWidth />
         </Box>
-        <IconButton className="Search-btn" aria-label="search" 
+        <IconButton className="Search-btn" aria-label="search"
           onClick={handleSubmit} disabled={formData.search.length === 0}>
           <SearchIcon />
         </IconButton>

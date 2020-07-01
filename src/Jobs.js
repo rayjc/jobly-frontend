@@ -54,7 +54,7 @@ const Jobs = () => {
 
   return (
     <div className="Jobs">
-      <Search />
+      <Search placeholder="Enter Job Title..." />
       <Container>
         <Box my={4}>
           <Grid container justify="center" alignItems="flex-start" spacing={3}>

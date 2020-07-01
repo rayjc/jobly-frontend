@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(5),
     },
     textAlign: "center",
+    borderRadius: 10,
   },
   heading: {
     fontWeight: 'bold',
@@ -40,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const { currUser } = useContext(AuthContext);
-  console.log(currUser);
   const classes = useStyles();
 
   return (
