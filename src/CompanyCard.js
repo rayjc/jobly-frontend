@@ -9,6 +9,9 @@ const useStyles = makeStyles({
   media: {
     maxHeight: 300,
   },
+  root: {
+    textAlign: 'center',
+  }
 })
 
 const CompanyCard = ({ handle, name, description, logo_url: logoUrl }) => {
@@ -17,7 +20,7 @@ const CompanyCard = ({ handle, name, description, logo_url: logoUrl }) => {
   const location = useLocation();
 
   return (
-    <Card>
+    <Card className={classes.root}>
       <CardActionArea component={Link} to={`${location.pathname}/${handle}`}>
         {logoUrl ? <CardMedia className={classes.media} image={logoUrl} title={name} /> : <BusinessIcon />}
         <CardContent>

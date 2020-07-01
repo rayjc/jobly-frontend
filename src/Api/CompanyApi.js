@@ -23,7 +23,7 @@ class CompanyApi {
   }
 
   static async removeCompany(handle) {
-    const res = await BaseApi.request(`companies/${handle}`, "delete");
+    const res = await BaseApi.request(`companies/${handle}`, undefined, "delete");
     return res.message;
   }
 }

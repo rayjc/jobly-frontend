@@ -23,7 +23,7 @@ class UserApi {
   }
 
   static async removeUser(username) {
-    const res = await BaseApi.request(`users/${username}`, "delete");
+    const res = await BaseApi.request(`users/${username}`, undefined, "delete");
     return res.message;
   }
 }
