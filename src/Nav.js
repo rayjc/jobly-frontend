@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
     marginBottom: '1.5rem',
+    boxShadow: `0 1px 2px grey`
   },
   toolbar: {
     flexWrap: 'wrap',
@@ -37,7 +38,7 @@ const Nav = () => {
 
   return (
     <div className="Nav">
-      <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+      <AppBar position="static" color="white" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}
             component={RouterLink} to="/">
