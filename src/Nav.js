@@ -38,7 +38,7 @@ const Nav = () => {
 
   return (
     <div className="Nav">
-      <AppBar position="static" color="white" elevation={0} className={classes.appBar}>
+      <AppBar position="static" color="inherit" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}
             component={RouterLink} to="/">

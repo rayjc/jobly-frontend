@@ -6,6 +6,7 @@ import CompanyDetail from './CompanyDetail';
 import Jobs from './Jobs';
 import Profile from './Profile';
 import PrivateRoute from './util/PrivateRoute';
+import Home from './Home';
 
 
 const Routes = () => (
@@ -26,8 +27,7 @@ const Routes = () => (
       <Profile />
     </PrivateRoute>
     <Route exact path="/">
-      {/* Home */}
-      <p>Home Page</p>
+      <Home />
     </Route>
     <Redirect to="/" />
   </Switch>
